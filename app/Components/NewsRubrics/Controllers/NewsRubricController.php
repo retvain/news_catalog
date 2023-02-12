@@ -1,64 +1,159 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Components\NewsRubrics\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Common\BaseClasses\BaseCrudController;
+use App\Common\Interfaces\CreateRecordInterface;
+use App\Common\Interfaces\DeleteRecordInterface;
+use App\Common\Interfaces\ReadRecordInterface;
+use App\Common\Interfaces\UpdateRecordInterface;
+use App\Common\Resources\ErrorResource;
+use App\Common\Resources\SuccessResource;
+use App\Common\Resources\SuccessResourceCollection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Throwable;
 
-class NewsRubricController extends Controller
+class NewsRubricController extends BaseCrudController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var CreateRecordInterface
      */
-    public function index()
+    private CreateRecordInterface $createNewsRubric;
+
+    /**
+     * @var UpdateRecordInterface
+     */
+    private UpdateRecordInterface $updateNewsRubric;
+
+    /**
+     * @var DeleteRecordInterface
+     */
+    private DeleteRecordInterface $deleteNewsRubric;
+
+    /**
+     * @var ReadRecordInterface
+     */
+    private ReadRecordInterface $readNewsRubric;
+
+    public function __construct(
+        CreateRecordInterface $createNewsRubric,
+        UpdateRecordInterface $updateNewsRubric,
+        DeleteRecordInterface $deleteNewsRubric,
+        ReadRecordInterface   $readNewsRubric,
+    )
     {
-        //
+        $this->createNewsRubric = $createNewsRubric;
+        $this->updateNewsRubric = $updateNewsRubric;
+        $this->deleteNewsRubric = $deleteNewsRubric;
+        $this->readNewsRubric = $readNewsRubric;
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Get all records
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return SuccessResourceCollection|ErrorResource
      */
-    public function store(Request $request)
+    public function getRecords(Request $request): SuccessResourceCollection|ErrorResource
     {
-        //
+        try {
+            $params = $this->getParams($request);
+            $records = $this->readNewsRubric->all($params);
+            $count = $this->readNewsRubric->count($params);
+            $result = new SuccessResourceCollection($records, $count);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка получения списка записей');
+        }
+
+        return $result;
     }
 
     /**
-     * Display the specified resource.
+     * Get one record
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return SuccessResource|ErrorResource
      */
-    public function show($id)
+    public function getRecord(string $id): SuccessResource|ErrorResource
     {
-        //
+        try {
+            $records = $this->readNewsRubric->one($id);
+            $result = new SuccessResource($records);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка получения записи');
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Create new record.
+     *
+     * @param Request $request
+     * @return Response|SuccessResource|ErrorResource
+     */
+    public function createRecord(Request $request): Response|SuccessResource|ErrorResource
+    {
+        try {
+            $data = $request->get('data');
+            $record = $this->createNewsRubric->one($data);
+            $result = new SuccessResource($record);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка создания записи');
+        }
+
+        return $result;
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update one record.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param string $id
+     * @return Response|SuccessResource|ErrorResource
      */
-    public function update(Request $request, $id)
+    public function updateRecord(Request $request, string $id): Response|SuccessResource|ErrorResource
     {
-        //
+        try {
+            $data = $request->get('data');
+            $record = $this->updateNewsRubric->one($data, (int)$id);
+            $result = new SuccessResource($record);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка обновления записи');
+        }
+
+        return $result;
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete one record.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return Response|SuccessResource|ErrorResource
      */
-    public function destroy($id)
+    public function deleteRecord(string $id): Response|SuccessResource|ErrorResource
     {
-        //
+        try {
+            $this->deleteNewsRubric->one((int)$id);
+            $result = new SuccessResource();
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка обновления записи');
+        }
+
+        return $result;
     }
 }

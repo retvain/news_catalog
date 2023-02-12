@@ -11,6 +11,8 @@
 |
 */
 
+use App\Components\NewsRubrics\BusinessLayer\Middleware\CreateNewsRubricsValidationMiddleware;
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -39,6 +41,16 @@ $app->singleton(
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
+);
+
+// подключаем файл маршрутов компонента рубрик
+$app->router->group(
+    [
+        'namespace' => 'App\Components\NewsRubrics\Controllers',
+    ],
+    function ($router) {
+        require __DIR__ . '/../app/Components/NewsRubrics/routes.php';
+    }
 );
 
 /*

@@ -1,5 +1,6 @@
 <?php
 
+use App\Components\NewsRubrics\Controllers\NewsRubricController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
