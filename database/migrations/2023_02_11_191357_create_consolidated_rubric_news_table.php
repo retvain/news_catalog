@@ -15,19 +15,11 @@ return new class extends Migration
     {
         Schema::create('consolidated_rubric_news', function (Blueprint $table) {
             $table->id();
-            $table->integer('news_id');
-            $table->integer('news_rubric_id');
+            $table->foreignId('news_id')->constrained('news');
+            $table->foreignId('news_rubric_id')->constrained('news_rubrics');
 
             $table->softDeletesTz();
             $table->timestamps();
-
-            $table->foreign('news_id')
-                ->references('id')
-                ->on('news');
-
-            $table->foreign('news_rubric_id')
-                ->references('id')
-                ->on('news_rubrics');
         });
     }
 
