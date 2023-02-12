@@ -6,3 +6,6 @@
 
 
 ./vendor/bin/sail artisan optimize в случае проблем
+
+
+Настройка xDebug - https://www.youtube.com/watch?v=iHad9TH9mOA
