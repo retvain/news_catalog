@@ -234,6 +234,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "add news",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"news_header\": \"Новый заголовок новости\",\r\n        \"news_announcement\": \"Анонс новости\",\r\n        \"news_body\": \"Текст новости, описание проишествия.\",\r\n        \"rubrics_id\": [1,2]\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
