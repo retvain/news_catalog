@@ -8,7 +8,6 @@ use App\Common\Resources\ErrorResource;
 use App\Components\NewsRubrics\BusinessLayer\Services\NewsRubricsValidator;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class CreateNewsRubricsValidationMiddleware
 {

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Components\News\BusinessLayer;
 
 use App\Common\Interfaces\CreateRecordInterface;
+use App\Components\News\Models\ConsolidatedRubricNews;
+use App\Components\News\Models\News;
 use App\Components\NewsRubrics\Models\NewsRubric;
 use Exception;
 
@@ -13,11 +15,11 @@ class CreateNews implements CreateRecordInterface
     /**
      * @var ReadNews
      */
-    private ReadNews $readNewsRubric;
+    private ReadNews $readNews;
 
-    public function __construct(ReadNews $readNewsRubric)
+    public function __construct(ReadNews $readNews)
     {
-        $this->readNewsRubric = $readNewsRubric;
+        $this->readNews = $readNews;
     }
 
     /**
@@ -25,19 +27,27 @@ class CreateNews implements CreateRecordInterface
      */
     public function one(array $data): array
     {
-        if (array_key_exists('parent_id', $data) && $data['parent_id'] !== null) {
-            $parentId = $data['parent_id'];
-            $parent = NewsRubric::find($parentId);
-            if (!($parent instanceof NewsRubric)) {
-                throw new Exception("Родительской рубрики с идентификатором $parent не найдено. ");
+        unset($data['id']);
+        $news = News::create($data);
+
+        if (array_key_exists('rubrics_id', $data) && count($data['rubrics_id']) > 0) {
+            foreach ($data['rubrics_id'] as $rubricId) {
+                $rubric = NewsRubric::find($rubricId);
+                if (!($rubric instanceof NewsRubric)) {
+                    throw new Exception("Рубрики с идентификатором $rubricId не существует.");
+                }
+                ConsolidatedRubricNews::create([
+                    'news_id' => $news->id,
+                    'news_rubric_id' => $rubricId
+                ]);
             }
+        } else {
+            ConsolidatedRubricNews::create([
+                'news_id' => $news->id,
+                'news_rubric_id' => NewsRubric::NO_RUBRIC_ID
+            ]);
         }
 
-        $newsRubric = NewsRubric::create([
-            'parent_id' => $data['parent_id'] ?? null,
-            'rubric_name' => $data['rubric_name']
-        ]);
-
-        return $this->readNewsRubric->one((string)$newsRubric->id);
+        return $this->readNews->one((string)$news->id);
     }
 }
