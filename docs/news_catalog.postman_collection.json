@@ -263,6 +263,66 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "update news",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"news_header\": \"Обновленный Новый заголовок новости\",\r\n        \"news_announcement\": \"Обновленный Анонс новости\",\r\n        \"news_body\": \"Обновленный Текст новости, описание проишествия.\",\r\n        \"rubrics_id\": [2,3]\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete news",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"news_header\": \"Обновленный Новый заголовок новости\",\r\n        \"news_announcement\": \"Обновленный Анонс новости\",\r\n        \"news_body\": \"Обновленный Текст новости, описание проишествия.\",\r\n        \"rubrics_id\": [2,3]\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
