@@ -8,6 +8,11 @@ use App\Common\Interfaces\CreateRecordInterface;
 use App\Common\Interfaces\DeleteRecordInterface;
 use App\Common\Interfaces\ReadRecordInterface;
 use App\Common\Interfaces\UpdateRecordInterface;
+use App\Components\News\BusinessLayer\CreateNews;
+use App\Components\News\BusinessLayer\DeleteNews;
+use App\Components\News\BusinessLayer\ReadNews;
+use App\Components\News\BusinessLayer\UpdateNews;
+use App\Components\News\Controllers\NewsController;
 use App\Components\NewsRubrics\BusinessLayer\CreateNewsRubric;
 use App\Components\NewsRubrics\BusinessLayer\DeleteNewsRubric;
 use App\Components\NewsRubrics\BusinessLayer\ReadNewsRubric;
@@ -34,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // rubrics
         $this->app
             ->when(NewsRubricController::class)
             ->needs(CreateRecordInterface::class)
@@ -50,5 +56,23 @@ class AppServiceProvider extends ServiceProvider
             ->when(NewsRubricController::class)
             ->needs(DeleteRecordInterface::class)
             ->give(DeleteNewsRubric::class);
+
+        // news
+        $this->app
+            ->when(NewsController::class)
+            ->needs(CreateRecordInterface::class)
+            ->give(CreateNews::class);
+        $this->app
+            ->when(NewsController::class)
+            ->needs(ReadRecordInterface::class)
+            ->give(ReadNews::class);
+        $this->app
+            ->when(NewsController::class)
+            ->needs(UpdateRecordInterface::class)
+            ->give(UpdateNews::class);
+        $this->app
+            ->when(NewsController::class)
+            ->needs(DeleteRecordInterface::class)
+            ->give(DeleteNews::class);
     }
 }

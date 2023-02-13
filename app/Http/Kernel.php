@@ -2,8 +2,8 @@
 
 namespace App\Http;
 
-use App\Components\NewsRubrics\BusinessLayer\Middleware\CreateNewsRubricsValidationMiddleware;
-use App\Components\NewsRubrics\BusinessLayer\Middleware\UpdateNewsRubricsValidationMiddleware;
+use App\Components\NewsRubrics\BusinessLayer\Middleware\CreateNewsValidationMiddleware;
+use App\Components\NewsRubrics\BusinessLayer\Middleware\UpdateNewsValidationMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'createNewsRubricsValidationMiddleware' => CreateNewsRubricsValidationMiddleware::class,
-        'updateNewsRubricsValidationMiddleware' => UpdateNewsRubricsValidationMiddleware::class
+        'createNewsRubricsValidationMiddleware' => CreateNewsValidationMiddleware::class,
+        'updateNewsRubricsValidationMiddleware' => UpdateNewsValidationMiddleware::class
     ];
 }

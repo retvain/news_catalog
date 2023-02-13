@@ -11,7 +11,7 @@
 |
 */
 
-use App\Components\NewsRubrics\BusinessLayer\Middleware\CreateNewsRubricsValidationMiddleware;
+use App\Components\NewsRubrics\BusinessLayer\Middleware\CreateNewsValidationMiddleware;
 
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
@@ -50,6 +50,16 @@ $app->router->group(
     ],
     function ($router) {
         require __DIR__ . '/../app/Components/NewsRubrics/routes.php';
+    }
+);
+
+// подключаем файл маршрутов компонента новостей
+$app->router->group(
+    [
+        'namespace' => 'App\Components\News\Controllers',
+    ],
+    function ($router) {
+        require __DIR__ . '/../app/Components/News/routes.php';
     }
 );
 
