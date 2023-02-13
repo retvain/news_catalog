@@ -29,6 +29,16 @@ services:
             - mailpit
             - selenium
 
+    elasticsearch:
+        image: elasticsearch:8.6.1
+        environment:
+            - xpack.security.enabled=false
+            - "discovery.type=single-node"
+        networks:
+            - sail
+        ports:
+            - 9200:9200
+
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
