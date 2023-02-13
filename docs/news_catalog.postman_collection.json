@@ -7,159 +7,235 @@
 	},
 	"item": [
 		{
-			"name": "add new rubric",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+			"name": "rubrics",
+			"item": [
+				{
+					"name": "add new rubric",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/rubrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost/api/news/rubrics",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"news",
-						"rubrics"
-					]
+				{
+					"name": "update rubric",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test2\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/rubrics/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete rubric",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/news/rubrics/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all rubrics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/rubrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get one rubric",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/rubrics/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "update rubric",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test2\"\r\n    }\r\n}"
+			"name": "news",
+			"item": [
+				{
+					"name": "get all news",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								""
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost/api/news/rubrics/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"news",
-						"rubrics",
-						"2"
-					]
+				{
+					"name": "get one news",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete rubric",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost/api/news/rubrics/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"news",
-						"rubrics",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get all rubrics",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost/api/news/rubrics",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"news",
-						"rubrics"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get one rubric",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost/api/news/rubrics/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"news",
-						"rubrics",
-						"1"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }
