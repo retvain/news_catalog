@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('news_id')->constrained('news');
             $table->foreignId('news_rubric_id')->constrained('news_rubrics');
 
-            $table->softDeletesTz();
             $table->timestamps();
         });
     }

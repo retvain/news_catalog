@@ -6,11 +6,10 @@ namespace App\Components\News\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ConsolidatedRubricNews extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -28,6 +27,6 @@ class ConsolidatedRubricNews extends Model
 
     protected $fillable = [
         'news_id',
-        'news_rubric_id'
+        'news_rubric_id',
     ];
 }
