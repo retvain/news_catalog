@@ -1,6 +1,6 @@
 ## Установка
 
-- cp .emv-example .env (скопировато содержимое env_example в новый .env файл)
+- cp .env.example .env (скопировать содержимое .env.example в новый .env файл)
 - composer install
 - ./vendor/bin/sail up -d
 - ./vendor/bin/sail artisan migrate:refresh --seed --force
