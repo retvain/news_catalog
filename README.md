@@ -4,7 +4,7 @@
 - composer install
 - ./vendor/bin/sail up -d
 - ./vendor/bin/sail artisan migrate:refresh --seed --force
-- sail artisan search:reindex (для обновления индексов поиска)
+- ./vendor/bin/sail artisan search:reindex (для обновления индексов поиска)
 
 
 ./vendor/bin/sail artisan optimize в случае проблем
