@@ -18,6 +18,8 @@ use App\Components\NewsRubrics\BusinessLayer\DeleteNewsRubric;
 use App\Components\NewsRubrics\BusinessLayer\ReadNewsRubric;
 use App\Components\NewsRubrics\BusinessLayer\UpdateNewsRubric;
 use App\Components\NewsRubrics\Controllers\NewsRubricController;
+use Elastic\Elasticsearch\Client as ElasticSearchClient;
+use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,7 +31,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(ElasticSearchClient::class, function () {
+            return ClientBuilder::create()
+                ->setHosts([env('ELASTIC_HOST', 'elasticsearch') . ':' . env('ELASTIC_PORT', '9200')])
+                ->build();
+        });
     }
 
     /**

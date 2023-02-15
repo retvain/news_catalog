@@ -12,6 +12,7 @@ use App\Common\Interfaces\UpdateRecordInterface;
 use App\Common\Resources\ErrorResource;
 use App\Common\Resources\SuccessResource;
 use App\Common\Resources\SuccessResourceCollection;
+use App\Components\NewsRubrics\BusinessLayer\Services\NewsRubricSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Throwable;
@@ -38,17 +39,24 @@ class NewsRubricController extends BaseCrudController
      */
     private ReadRecordInterface $readNewsRubric;
 
+    /**
+     * @var NewsRubricSearchService
+     */
+    private NewsRubricSearchService $newsRubricsSearchService;
+
     public function __construct(
-        CreateRecordInterface $createNewsRubric,
-        UpdateRecordInterface $updateNewsRubric,
-        DeleteRecordInterface $deleteNewsRubric,
-        ReadRecordInterface   $readNewsRubric,
+        CreateRecordInterface   $createNewsRubric,
+        UpdateRecordInterface   $updateNewsRubric,
+        DeleteRecordInterface   $deleteNewsRubric,
+        ReadRecordInterface     $readNewsRubric,
+        NewsRubricSearchService $newsRubricSearchService,
     )
     {
         $this->createNewsRubric = $createNewsRubric;
         $this->updateNewsRubric = $updateNewsRubric;
         $this->deleteNewsRubric = $deleteNewsRubric;
         $this->readNewsRubric = $readNewsRubric;
+        $this->newsRubricsSearchService = $newsRubricSearchService;
     }
 
     /**
@@ -93,6 +101,24 @@ class NewsRubricController extends BaseCrudController
         return $result;
     }
 
+    /**
+     * @param Request $request
+     * @return ErrorResource|SuccessResourceCollection
+     */
+    public function search(Request $request): SuccessResourceCollection|ErrorResource
+    {
+        try {
+            $data = $request->get('data');
+            $searchResult = $this->newsRubricsSearchService->findNews($data);
+            $result = new SuccessResourceCollection($searchResult);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка поиска');
+        }
+
+        return $result;
+    }
 
     /**
      * Create new record.

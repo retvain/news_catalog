@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace App\Components\NewsRubrics\Models;
 
+use App\Common\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @method static cursor()
+ */
 class NewsRubric extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     public const NO_RUBRIC_ID = 1;
 

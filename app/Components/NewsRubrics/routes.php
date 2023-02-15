@@ -13,6 +13,7 @@ if (isset($router)) {
                 'uses' => 'NewsRubricController@createRecord',
                 'middleware' => 'createNewsRubricsValidationMiddleware'
             ]);
+            $router->post('/search', ['uses' => 'NewsRubricController@search']);
             $router->put('/{id}', [
                 'uses' => 'NewsRubricController@updateRecord',
                 'middleware' => 'updateNewsRubricsValidationMiddleware'

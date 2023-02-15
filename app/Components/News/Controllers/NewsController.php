@@ -12,6 +12,7 @@ use App\Common\Interfaces\UpdateRecordInterface;
 use App\Common\Resources\ErrorResource;
 use App\Common\Resources\SuccessResource;
 use App\Common\Resources\SuccessResourceCollection;
+use App\Components\News\BusinessLayer\Services\NewsSearchService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Throwable;
@@ -38,17 +39,24 @@ class NewsController extends BaseCrudController
      */
     private ReadRecordInterface $readNews;
 
+    /**
+     * @var NewsSearchService
+     */
+    private NewsSearchService $newsSearchService;
+
     public function __construct(
         CreateRecordInterface $createNews,
         UpdateRecordInterface $updateNews,
         DeleteRecordInterface $deleteNews,
         ReadRecordInterface   $readNews,
+        NewsSearchService     $newsSearchService
     )
     {
         $this->createNews = $createNews;
         $this->updateNews = $updateNews;
         $this->deleteNews = $deleteNews;
         $this->readNews = $readNews;
+        $this->newsSearchService = $newsSearchService;
     }
 
     /**
@@ -93,6 +101,25 @@ class NewsController extends BaseCrudController
         return $result;
     }
 
+    /**
+     * @param Request $request
+     * @return ErrorResource|SuccessResourceCollection
+     */
+    public function search(Request $request): SuccessResourceCollection|ErrorResource
+    {
+        try {
+            $data = $request->get('data');
+            $searchResult = $this->newsSearchService->findNews($data);
+            $result = new SuccessResourceCollection($searchResult);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка поиска');
+        }
+
+        return $result;
+    }
+
 
     /**
      * Create new record.
@@ -100,7 +127,8 @@ class NewsController extends BaseCrudController
      * @param Request $request
      * @return Response|SuccessResource|ErrorResource
      */
-    public function createRecord(Request $request): Response|SuccessResource|ErrorResource
+    public
+    function createRecord(Request $request): Response|SuccessResource|ErrorResource
     {
         try {
             $data = $request->get('data');
