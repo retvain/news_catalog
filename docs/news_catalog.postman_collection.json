@@ -163,6 +163,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"search\": \"Город\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/rubrics/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics",
+								"search"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -259,6 +290,36 @@
 							"path": [
 								"api",
 								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"search\": \"проишествdия\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"search"
 							]
 						}
 					},
