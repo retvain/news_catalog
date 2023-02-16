@@ -7,6 +7,8 @@ namespace App\Components\NewsRubrics\BusinessLayer;
 use App\Common\Interfaces\CreateRecordInterface;
 use App\Components\NewsRubrics\Models\NewsRubric;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class CreateNewsRubric implements CreateRecordInterface
 {
@@ -22,6 +24,7 @@ class CreateNewsRubric implements CreateRecordInterface
 
     /**
      * @throws Exception
+     * @throws Throwable
      */
     public function one(array $data): array
     {
@@ -33,10 +36,17 @@ class CreateNewsRubric implements CreateRecordInterface
             }
         }
 
-        $newsRubric = NewsRubric::create([
-            'parent_id' => $data['parent_id'] ?? null,
-            'rubric_name' => $data['rubric_name']
-        ]);
+        try {
+            DB::beginTransaction();
+            $newsRubric = NewsRubric::create([
+                'parent_id' => $data['parent_id'] ?? null,
+                'rubric_name' => $data['rubric_name']
+            ]);
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
 
         return $this->readNewsRubric->one((string)$newsRubric->id);
     }

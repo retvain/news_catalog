@@ -9,9 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @method static cursor()
- */
 class NewsRubric extends Model
 {
     use HasFactory, SoftDeletes, Searchable;

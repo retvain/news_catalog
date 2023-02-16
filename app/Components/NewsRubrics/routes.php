@@ -8,7 +8,9 @@ if (isset($router)) {
         ],
         function () use ($router) {
             $router->get('/', ['uses' => 'NewsRubricController@getRecords']);
+            $router->get('/parents', ['uses' => 'NewsRubricController@getParents']);
             $router->get('/{id}', ['uses' => 'NewsRubricController@getRecord']);
+            $router->get('/{parentId}/children', ['uses' => 'NewsRubricController@getAllByParent']);
             $router->post('/', [
                 'uses' => 'NewsRubricController@createRecord',
                 'middleware' => 'createNewsRubricsValidationMiddleware'

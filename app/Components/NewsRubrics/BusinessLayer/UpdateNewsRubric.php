@@ -8,6 +8,8 @@ use App\Common\Interfaces\CreateRecordInterface;
 use App\Common\Interfaces\UpdateRecordInterface;
 use App\Components\NewsRubrics\Models\NewsRubric;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class UpdateNewsRubric implements UpdateRecordInterface
 {
@@ -23,6 +25,7 @@ class UpdateNewsRubric implements UpdateRecordInterface
 
     /**
      * @throws Exception
+     * @throws Throwable
      */
     public function one(array $data, int $id): array
     {
@@ -40,7 +43,15 @@ class UpdateNewsRubric implements UpdateRecordInterface
             throw new Exception("Ошибка обновления. Рубрика с id $id не найдена. ");
         }
 
-        $newsRubric->update($data);
+        try {
+            DB::beginTransaction();
+            $newsRubric->update($data);
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
 
         $newRecord = NewsRubric::find($id);
 

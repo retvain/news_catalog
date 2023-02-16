@@ -82,6 +82,51 @@ class NewsRubricController extends BaseCrudController
     }
 
     /**
+     * Список всех рубрик, у которых parent_id = null
+     *
+     * @param Request $request
+     * @return SuccessResourceCollection|ErrorResource
+     */
+    public function getParents(Request $request): SuccessResourceCollection|ErrorResource
+    {
+        try {
+            $params = $this->getParams($request);
+            $records = $this->readNewsRubric->allParents($params);
+            $count = $this->readNewsRubric->count($params);
+            $result = new SuccessResourceCollection($records, $count);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка получения списка записей');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Список всех дочерних рубрик родителя по id
+     *
+     * @param Request $request
+     * @param string $parentId
+     * @return SuccessResourceCollection|ErrorResource
+     */
+    public function getAllByParent(Request $request, string $parentId): SuccessResourceCollection|ErrorResource
+    {
+        try {
+            $params = $this->getParams($request);
+            $records = $this->readNewsRubric->allByParentId($params, $parentId);
+            $count = $this->readNewsRubric->count($params);
+            $result = new SuccessResourceCollection($records, $count);
+        } catch (Throwable $e) {
+            $result = new ErrorResource(
+                ['error' => $e->getMessage()],
+                'Ошибка получения списка записей');
+        }
+
+        return $result;
+    }
+
+    /**
      * Get one record
      *
      * @param string $id
