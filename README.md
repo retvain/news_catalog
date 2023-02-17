@@ -41,7 +41,7 @@ app\Common.
 - `composer install`
 - `./vendor/bin/sail up -d`
 - `./vendor/bin/sail artisan migrate:refresh --seed --force`
-- `./vendor/bin/sail artisan search:reindex` (для обновления индексов поиска) `./vendor/bin/sail artisan search:reindex-daemon` - в виде службы
+- `./vendor/bin/sail artisan search:reindex` (для обновления индексов поиска) `./vendor/bin/sail artisan search:reindex-daemon &` - в виде службы
 
 фронт:
 - `./vendor/bin/sail exec frontend cp .env-example .env`
