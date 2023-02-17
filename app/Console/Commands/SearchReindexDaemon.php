@@ -11,14 +11,14 @@ use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Illuminate\Console\Command;
 
-class SearchReindex extends Command
+class SearchReindexDaemon extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = "search:reindex";
+    protected $signature = "search:reindex-daemon";
 
     /**
      * The console command description.
@@ -55,9 +55,11 @@ class SearchReindex extends Command
      */
     public function handle(): void
     {
-        $this->info('Indexing all news. This might take a while...');
-        $this->search->refreshIndexes();
-        $this->info('Done!');
+        $this->info('Reindex service has ben started.');
+        while (true) {
+            $this->search->refreshIndexes();
+            sleep(1);
+        }
     }
 
 }
