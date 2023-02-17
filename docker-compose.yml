@@ -22,12 +22,12 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
-        depends_on:
-            - mysql
-            - redis
-            - meilisearch
-            - mailpit
-            - selenium
+#        depends_on:
+#            - mysql
+#            - redis
+#            - meilisearch
+#            - mailpit
+#            - selenium
 
     elasticsearch:
         image: elasticsearch:8.6.1
