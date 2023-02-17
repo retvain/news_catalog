@@ -37,7 +37,8 @@ app\Common.
 ## Установка
 
 автоматическая (linux \ WSL):
-> `./install.sh`
+>- `sudo chmod +x install.sh`
+>- `./install.sh`
 
 или в ручном режиме
 
