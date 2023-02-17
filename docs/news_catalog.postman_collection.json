@@ -22,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test2\",\r\n        \"parent_id\": 2\r\n    }\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost/api/news/rubrics",
@@ -125,6 +125,75 @@
 								"api",
 								"news",
 								"rubrics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all rubrics by parent id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/rubrics/2/children",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics",
+								"2",
+								"children"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all parent rubrics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"rubric_name\": \"test\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost/api/news/rubrics/parents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"news",
+								"rubrics",
+								"parents"
 							]
 						}
 					},
