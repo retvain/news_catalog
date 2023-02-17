@@ -114,6 +114,17 @@ services:
         networks:
             - sail
 
+    frontend:
+        image: 'node:16.16.0-alpine'
+        tty: true
+        working_dir: /usr/app/news_catalog
+        volumes:
+            - ./frontend:/usr/app/news_catalog
+        ports:
+            - '${FRONTEND_PORT:-8080}:8080'
+        networks:
+            - sail
+
 networks:
     sail:
         driver: bridge
