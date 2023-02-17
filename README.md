@@ -36,22 +36,25 @@ app\Common.
 
 ## Установка
 
-требования:
-- установленная версия php8.2, composer, docker-compose
+автоматическая (linux \ WSL):
+> `./install.sh`
 
-бэк:
-- `cp .emv-example .env` (скопировать содержимое env_example в новый .env файл)
-- `composer install`
-- `./vendor/bin/sail up -d`
-- `./vendor/bin/sail artisan migrate:refresh --seed --force`
-- `./vendor/bin/sail artisan search:reindex` (для обновления индексов поиска) `./vendor/bin/sail artisan search:reindex-daemon &` - в виде службы
+или в ручном режиме
 
-фронт:
-- `./vendor/bin/sail exec frontend cp .env-example .env`
-- `./vendor/bin/sail exec frontend npm install`
-- `./vendor/bin/sail exec frontend npm run serve`
+>бэк:
+>- `cp .emv-example .env` (скопировать содержимое env_example в новый .env файл)
+>- `docker-compose up -d laravel.test`
+>- `docker-compose exec laravel.test composer install && docker-compose down`
+>- `./vendor/bin/sail up -d`
+>- `./vendor/bin/sail artisan migrate:refresh --seed --force`
+>- `./vendor/bin/sail artisan search:reindex` (для обновления индексов поиска) `./vendor/bin/sail artisan search:reindex-daemon &` - в виде службы
+>
+>фронт:
+>- `./vendor/bin/sail exec frontend cp .env-example .env`
+>- `./vendor/bin/sail exec frontend npm install`
+>- `./vendor/bin/sail exec frontend npm run serve`
 
-- открыть приложение по адресу localhost:8087
+- открыть приложение по адресу localhost:8080
 
 
 ## Тесты
