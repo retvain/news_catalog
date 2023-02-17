@@ -36,6 +36,9 @@ app\Common.
 
 ## Установка
 
+требования:
+- установленная версия php8.2, composer, docker-compose
+
 бэк:
 - `cp .emv-example .env` (скопировать содержимое env_example в новый .env файл)
 - `composer install`
