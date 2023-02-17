@@ -57,7 +57,11 @@ class SearchReindexDaemon extends Command
     {
         $this->info('Reindex service has ben started.');
         while (true) {
-            $this->search->refreshIndexes();
+            try {
+                $this->search->refreshIndexes();
+            } catch (\Throwable $e) {
+
+            }
             sleep(1);
         }
     }
