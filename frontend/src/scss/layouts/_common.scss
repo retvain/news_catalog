@@ -25,9 +25,6 @@
   .v-card__actions {
     justify-content: space-between;
   }
-  .col {
-    min-width: fit-content;
-  }
 }
 // block
 .block {
@@ -158,4 +155,14 @@ iframe {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+.add-news-form {
+  width: 500px;
+  margin-left: 20px;
+}
+.news-card.col {
+  width: 400px;
+  .col-4 {
+      width: 400px;
+  }
 }

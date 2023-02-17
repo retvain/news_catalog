@@ -1,16 +1,8 @@
 <template>
     <div class="tree-data-group">
-        <tree-data-item
-            v-for="(item, index) in treeData"
-            :key="index"
-            class="tree-data-item"
-            :item="item"
-            :last-clicked-item-id="lastClickedItemId"
-            @change-event="transmit"
-            @item-clicked="itemClickHandler"
-            @item-toggle="$emit('item-toggle')"
-            @dropdown-btn-clicked="$emit('dropdown-btn-clicked', $event)"
-        ></tree-data-item>
+        <tree-data-item v-for="(item, index) in treeData" :key="index" :updateKey="updateKey" class="tree-data-item"
+            :item="item" :last-clicked-item-id="lastClickedItemId" @item-clicked="itemClickHandler"
+            @item-toggle="$emit('item-toggle')"></tree-data-item>
     </div>
 </template>
 
@@ -26,6 +18,9 @@ export default {
             type: Array,
             required: true,
         },
+        updateKey: {
+            type: Number,
+        }
     },
     data: function () {
         return {
@@ -37,9 +32,6 @@ export default {
             this.lastClickedItemId = item.id;
             this.$emit('item-clicked', item)
         },
-        transmit(event, item) {
-            this.$emit(event, item)
-        },
     },
 }
 </script>
@@ -48,9 +40,5 @@ export default {
 .tree-data-item {
     display: flex;
     flex-direction: column;
-}
-.tree-data-item.selected {
-    background-color: #ebe6f2;
-    border-radius: 12px;
 }
 </style>

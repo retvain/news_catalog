@@ -1,17 +1,23 @@
 <template>
   <div>
+    <v-toolbar flat>
+      <v-btn icon @click="searchData()">
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <v-text-field hide-details @keydown.enter="searchData()" single-line v-model="searchStringData.search">
+      </v-text-field>
+    </v-toolbar>
     <v-card>
-      <v-row class="pa-4" justify="space-between">
+      <div class="pa-4">
         <v-col cols="5">
           <div>
-            <tree-data-group @item-clicked="transmit" :tree-data="treeData"
-              :key="updateKey"></tree-data-group>
+            <tree-data-group @item-clicked="transmit" :tree-data="treeData" :updateKey="updateKey"></tree-data-group>
           </div>
           <v-btn text :class="{ 'active': isActive }" @click="openFormAddParentRubric" color="info">
             Добавить новую рубрику
           </v-btn>
         </v-col>
-        <v-col cols="2" class="rubric-form">
+        <v-col class="main-form">
           <h5>Редактирование рубрики</h5>
           <v-toolbar flat>
             <h5 v-if="this.currentObject.rubric_name && isActive">{{ this.currentObject.rubric_name }}</h5>
@@ -106,7 +112,7 @@
             </v-toolbar>
           </div>
 
-          <div v-if="isUpdateError" class="error">
+          <div v-if="isUpdateError" class="api-error">
             <v-alert colored-border type="error" elevation="2">
               <v-list-item-content>
                 <v-list-item-title>{{ errorMsg }}</v-list-item-title>
@@ -116,7 +122,7 @@
           </div>
 
         </v-col>
-      </v-row>
+      </div>
     </v-card>
   </div>
 </template>
@@ -155,6 +161,9 @@ export default {
       isDeleteChildFormOpen: false,
       isEditChildFormOpen: false,
       treeData: [],
+      searchStringData: {
+        search: '',
+      },
     }
   },
   computed: {
@@ -166,6 +175,9 @@ export default {
     },
     requestUpdateRoute: function () {
       return process.env.VUE_APP_HOST + '/api/news/rubrics/' + this.currentObject.id;
+    },
+    searchRoute: function () {
+      return process.env.VUE_APP_HOST + '/api/news/rubrics/search';
     },
     rubricName: {
       get: function () {
@@ -197,7 +209,7 @@ export default {
       this.axios.get(
         this.requestParentRoute,
       ).then(response => {
-        if (response.data?.success) { 
+        if (response.data?.success) {
           this.treeData = response?.data?.items;
         } else {
           console.log(response?.data);
@@ -271,6 +283,7 @@ export default {
         if (response.data?.success) {
           this.isAddChildFormOpen = false;
           this.updateData();
+          this.updateKey++;
         } else {
           this.isUpdateError = true;
           this.errorMsg = response?.data.message;
@@ -288,6 +301,7 @@ export default {
         if (response.data?.success) {
           this.isDeleteChildFormOpen = false;
           this.updateData();
+          this.updateKey++;
         } else {
           this.isUpdateError = true;
           this.errorMsg = response?.data.message;
@@ -309,6 +323,7 @@ export default {
         if (response.data?.success) {
           this.isEditChildFormOpen = false;
           this.updateData();
+          this.updateKey++;
           this.isActive = false;
         } else {
           this.isUpdateError = true;
@@ -339,6 +354,23 @@ export default {
       this.isUpdateError = false;
       this.isDeleteChildFormOpen = false;
     },
+    searchData() {
+      const url = this.searchRoute;
+      const data = this.searchStringData;
+
+      this.axios.post(url,
+        { data },
+      ).then(response => {
+        if (response.data?.success) {
+          this.treeData = response?.data?.items;
+        } else {
+          console.log(response?.data);
+          this.updateData();
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+    },
   },
   created() {
     this.updateData();
@@ -359,8 +391,14 @@ h5 {
   justify-content: end;
 }
 
+.main-form {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
 .rubrics-form,
-.error,
+.api-error,
 .v-toolbar__content {
   width: 400px;
 }

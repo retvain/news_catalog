@@ -8,9 +8,9 @@
             </v-text-field>
         </v-toolbar>
 
-        <v-row class="pa-4" justify="space-between">
-            <v-col cols="7">
-                <v-card class="mx-auto" v-for="(item, itemIndex) in this.newsData" :key="itemIndex">
+        <div class="pa-4">
+            <div class="news-card">
+                <v-card v-for="(item, itemIndex) in this.newsData" :key="itemIndex">
                     <v-toolbar flat>
                         <v-toolbar-title>{{ item.news_header }}</v-toolbar-title>
 
@@ -43,8 +43,8 @@
                         </div>
                     </v-card-actions>
                 </v-card>
-            </v-col>
-            <v-col cols="4">
+            </div>
+            <div class="add-news-form">
                 <div class="btn-group">
                     <v-btn small text @click="openFormSync" :class="{ 'btn-active': isFormOpen && isSync }">
                         Добавить новость синхронно
@@ -53,7 +53,7 @@
                         Добавить новость асинхронно
                     </v-btn>
                 </div>
-                <div v-if="this.isFormOpen" class="add-news-form">
+                <div v-if="this.isFormOpen">
                     <v-form>
                         <v-container>
                             <v-text-field v-model="newsHeader" label="Заголовок" required></v-text-field>
@@ -112,8 +112,8 @@
                     </div>
 
                 </div>
-            </v-col>
-        </v-row>
+            </div>
+        </div>
         <news-modal-set @modal-close-btn-clicked="closeModal" @data-changes="updateData"
             :is-modal-visible="isModalVisible" :mode.sync="modalMode" :id="lastClickedArticleId"
             :arr="arr"></news-modal-set>
@@ -334,7 +334,12 @@ export default {
 
 </script>
 
-<style  lang="scss">
+<style lang="scss">
+.pa-4 {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
 .btn-group {
     display: flex;
     flex-direction: column;
@@ -342,9 +347,5 @@ export default {
     .btn-active {
         background-color: #ebe6f2;
     }
-}
-
-.add-news-form {
-    width: 400px;
 }
 </style>
