@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ElasticSearchClient::class, function () {
+        $this->app->singleton(ElasticSearchClient::class, function () {
             return ClientBuilder::create()
                 ->setHosts([env('ELASTIC_HOST', 'elasticsearch') . ':' . env('ELASTIC_PORT', '9200')])
                 ->build();

@@ -36,6 +36,18 @@ class Search
      */
     public function refreshIndexes(): void
     {
+        $this->refreshNewsIndexes();
+        $this->refreshNewsRubricsIndexes();
+    }
+
+    /**
+     * @return void
+     * @throws ClientResponseException
+     * @throws MissingParameterException
+     * @throws ServerResponseException
+     */
+    public function refreshNewsIndexes(): void
+    {
         foreach (News::cursor() as $news) {
             $this->searcher->index([
                 'index' => $news->getSearchIndex(),
@@ -44,6 +56,15 @@ class Search
                 'body' => $news->toSearchArray(),
             ]);
         }
+    }
+
+    /**
+     * @throws ClientResponseException
+     * @throws ServerResponseException
+     * @throws MissingParameterException
+     */
+    public function refreshNewsRubricsIndexes(): void
+    {
         foreach (NewsRubric::cursor() as $news) {
             $this->searcher->index([
                 'index' => $news->getSearchIndex(),
